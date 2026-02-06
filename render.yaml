@@ -13,7 +13,7 @@ services:
         fromService:
           type: web
           name: turnero-client
-          property: url
+          property: host
       - key: NODE_ENV
         value: production
       # User will need to add MONGO_URI, JWT_SECRET manually in Render Dashboard
@@ -30,4 +30,4 @@ services:
         fromService:
           type: web
           name: turnero-server
-          property: url
+          property: host
