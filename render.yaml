@@ -1,0 +1,33 @@
+services:
+  # Backend
+  - type: web
+    name: turnero-server
+    env: node
+    root: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: PORT
+        value: 5000
+      - key: CLIENT_URL
+        fromService:
+          type: web
+          name: turnero-client
+          property: url
+      - key: NODE_ENV
+        value: production
+      # User will need to add MONGO_URI, JWT_SECRET manually in Render Dashboard
+
+  # Frontend
+  - type: web
+    name: turnero-client
+    env: node
+    root: client
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: turnero-server
+          property: url
