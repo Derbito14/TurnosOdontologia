@@ -3,7 +3,7 @@ services:
   - type: web
     name: turnero-server
     env: node
-    root: server
+    rootDir: server
     buildCommand: npm install
     startCommand: npm start
     envVars:
@@ -22,7 +22,7 @@ services:
   - type: web
     name: turnero-client
     env: node
-    root: client
+    rootDir: client
     buildCommand: npm install && npm run build
     startCommand: npm start
     envVars:
