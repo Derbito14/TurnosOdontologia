@@ -61,8 +61,12 @@ router.get('/availability', async (req, res) => {
 
         res.json({ slots: availableSlots });
     } catch (err) {
-        console.error(err);
-        res.status(500).json({ error: 'Server error' });
+        console.error("❌ ERROR en /availability:", err);
+        res.status(500).json({
+            error: 'Server error',
+            details: err.message,
+            stack: process.env.NODE_ENV === 'development' ? err.stack : undefined
+        });
     }
 });
 
