@@ -18,7 +18,8 @@
         "@fullcalendar/timegrid": "^6.1.10",
         "@fullcalendar/interaction": "^6.1.10",
         "@fullcalendar/core": "^6.1.10",
-        "lucide-react": "^0.294.0"
+        "lucide-react": "^0.294.0",
+        "date-fns": "^2.30.0"
     },
     "devDependencies": {
         "autoprefixer": "^10.0.1",
