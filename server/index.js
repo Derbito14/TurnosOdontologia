@@ -20,11 +20,12 @@ app.use(express.json());
 // Database Connection
 const promptConnection = async () => {
     try {
-        if (!process.env.MONGO_URI) {
-            console.warn('⚠️ MONGO_URI is missing in .env file. Database will not connect.');
+        const uri = process.env.MONGO_URI || process.env.MONGODB_URI;
+        if (!uri) {
+            console.warn('⚠️ MONGO_URI/MONGODB_URI is missing in .env file. Database will not connect.');
             return;
         }
-        await mongoose.connect(process.env.MONGO_URI);
+        await mongoose.connect(uri);
         console.log('✅ MongoDB Connected');
     } catch (err) {
         console.error('❌ MongoDB Connection Error:', err);
