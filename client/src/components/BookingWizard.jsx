@@ -82,9 +82,9 @@ export default function BookingWizard() {
 
     // Helper: Next/Prev Day
     const shiftDate = (days) => {
-        const current = selectedDate ? new Date(selectedDate) : new Date();
+        // Use a 12:00:00 time to avoid timezone jumps at midnight
+        const current = selectedDate ? new Date(selectedDate + 'T12:00:00') : new Date();
         current.setDate(current.getDate() + days);
-        // Avoid weekends or past dates if needed logic here
         setSelectedDate(format(current, 'yyyy-MM-dd'));
     };
 
