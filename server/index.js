@@ -8,9 +8,11 @@ const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors({
-    origin: process.env.CLIENT_URL
-        ? (process.env.CLIENT_URL.startsWith('http') ? process.env.CLIENT_URL : `https://${process.env.CLIENT_URL}`)
-        : '*',
+    origin: (origin, callback) => {
+        // Allow all origins for now to troubleshoot connectivity
+        // In production, we should restrict this to the Vercel domain
+        callback(null, true);
+    },
     credentials: true
 }));
 app.use(express.json());
