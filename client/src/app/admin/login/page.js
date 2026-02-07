@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { useAuth } from '@/lib/authContext';
+import { useAuth } from '../../../lib/authContext';
 import { useRouter } from 'next/navigation';
 import { Lock } from 'lucide-react';
 

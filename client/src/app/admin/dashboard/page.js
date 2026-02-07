@@ -6,8 +6,8 @@ import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
 import esLocale from '@fullcalendar/core/locales/es';
-import api from '@/lib/api';
-import { useAuth } from '@/lib/authContext';
+import api from '../../../lib/api';
+import { useAuth } from '../../../lib/authContext';
 import { useRouter } from 'next/navigation';
 import { LogOut, Calendar as CalendarIcon, List } from 'lucide-react';
 

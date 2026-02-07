@@ -1,4 +1,4 @@
-import BookingWizard from '@/components/BookingWizard';
+import BookingWizard from '../components/BookingWizard';
 import { Smile } from 'lucide-react';
 
 export default function Home() {
