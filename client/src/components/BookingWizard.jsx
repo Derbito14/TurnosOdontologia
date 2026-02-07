@@ -42,7 +42,24 @@ export default function BookingWizard() {
         setAvailableSlots([]);
         try {
             const res = await api.get(`/public/availability?date=${date}`);
-            setAvailableSlots(res.data.slots);
+            let slots = res.data.slots;
+
+            // If selected day is today, filter out past hours
+            const todayStr = format(new Date(), 'yyyy-MM-dd');
+            if (date === todayStr) {
+                const now = new Date();
+                const currentHour = now.getHours();
+                const currentMinute = now.getMinutes();
+
+                slots = slots.filter(slot => {
+                    const [slotHour, slotMin] = slot.split(':').map(Number);
+                    if (slotHour > currentHour) return true;
+                    if (slotHour === currentHour && slotMin > currentMinute) return true;
+                    return false;
+                });
+            }
+
+            setAvailableSlots(slots);
         } catch (error) {
             console.error("Error fetching slots", error);
             const errorMsg = error.response?.data?.error || error.message;
@@ -85,6 +102,12 @@ export default function BookingWizard() {
         // Use a 12:00:00 time to avoid timezone jumps at midnight
         const current = selectedDate ? new Date(selectedDate + 'T12:00:00') : new Date();
         current.setDate(current.getDate() + days);
+
+        // Prevent going to past dates
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        if (current < today) return;
+
         setSelectedDate(format(current, 'yyyy-MM-dd'));
     };
 
@@ -162,7 +185,11 @@ export default function BookingWizard() {
 
                         {/* Date Navigation */}
                         <div className="flex items-center justify-between bg-slate-50 p-4 rounded-xl mb-6">
-                            <button onClick={() => shiftDate(-1)} className="p-2 hover:bg-slate-200 rounded-full transition">
+                            <button
+                                onClick={() => shiftDate(-1)}
+                                disabled={selectedDate === format(new Date(), 'yyyy-MM-dd')}
+                                className="p-2 hover:bg-slate-200 rounded-full transition disabled:opacity-30 disabled:cursor-not-allowed"
+                            >
                                 <ChevronLeft className="w-5 h-5 text-slate-600" />
                             </button>
                             <div className="text-center">
