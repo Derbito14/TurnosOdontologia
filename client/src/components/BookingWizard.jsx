@@ -45,7 +45,8 @@ export default function BookingWizard() {
             setAvailableSlots(res.data.slots);
         } catch (error) {
             console.error("Error fetching slots", error);
-            alert("Error al cargar horarios. Intente nuevamente.");
+            const errorMsg = error.response?.data?.error || error.message;
+            alert(`Error al cargar horarios: ${errorMsg}\nURL intentada: ${api.defaults.baseURL}/public/availability`);
         } finally {
             setLoading(false);
         }
